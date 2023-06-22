@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+  <link rel="stylesheet" href="style.css">
+  <title>Timer App</title>
+</head>
+
+<body>
+  <div id="timer">
+    <div class="container">
+      <div class="card" v-for="item of items">
+        <div :class="styleHandler(item.state, 'card')">{{time(item.id)}}</div>
+        <div :class="styleHandler(item.state, 'vector')"></div>
+        <div class="card-bottom">
+          <div :class="styleHandler(item.state, 'play')" @click="pauseButtonHandler(item.id)"></div>
+          <div :class="styleHandler(item.state, 'stop')" @click="stop(item.id)"></div>
+        </div>
+      </div>
+      <div class="plus-card" @click="plus()">
+        <div class="cross-x"></div>
+        <div class="cross-y"></div>
+      </div>
+    </div>
+  </div>
+  <script src="https://unpkg.com/vue@3"></script>
+  <script>
+    const timerApp = Vue.createApp({
+      data() {
+        return {
+          root: null,
+          items: [
+            {
+              id: 0,
+              seconds: 0,
+              tens: 0,
+              hours: 0,
+              state: false,
+              interval: ''
+            }]
+        }
+      },
+      methods: {
+        styleHandler: function (x, y) {
+          switch (y) {
+            case 'card':
+              return x ? 'card-top' : 'card-top-disabled'
+              break;
+            case 'vector':
+              return x ? 'vector' : 'vector-disabled'
+              break;
+            case 'play':
+              return x ? 'pause-button' : 'play-button-disabled'
+              break;
+            case 'stop':
+              return x ? 'square' : 'square-disabled'
+              break;
+          }
+        },
+        plus: function () {
+          this.items.push(
+            {
+              id: this.items.length,
+              seconds: 0,
+              tens: 0,
+              hours: 0,
+              state: false,
+              interval: ''
+            }
+          )
+        },
+        pauseButtonHandler: function (x) {
+          this.items[x].state ? this.pause(x) : this.start(x)
+          this.color = this.items[x].state ? '#000000' : '#ffffff'
+        },
+        time: function (x) {
+          if (this.items[x].hours + this.items[x].seconds + this.items[x].tens - 0 == 0) {
+            return '00:00'
+          }
+          if (this.items[x].hours - 0 >= 1) {
+            return this.items[x].hours + ':' + this.items[x].seconds + ':' + this.items[x].tens
+          }
+          if (this.items[x].seconds - 0 < 1) {
+            return this.items[x].tens
+          }
+          if (this.items[x].hours - 0 < 1) {
+            return this.items[x].seconds + ':' + this.items[x].tens
+          }
+        },
+        stop: function (x) {
+          this.items[x].state = false;
+          this.items[x].tens = 0;
+          this.items[x].seconds = 0;
+          this.items[x].hours = 0;
+          clearInterval(this.items[x].interval);
+          this.styleHandler(this.items[x].state);
+        },
+        pause: function (x) {
+          this.items[x].state = false;
+          clearInterval(this.items[x].interval);
+          this.styleHandler(this.items[x].state);
+        },
+        start: function (x) {
+          this.items[x].interval = setInterval(this.startTimer, 1000, x);
+          this.items[x].state = true;
+          this.styleHandler(this.items[x].state);
+        },
+        startTimer: function (x) {
+          this.items[x].tens++;
+          if (this.items[x].tens <= 9) {
+            this.items[x].tens = "0" + this.items[x].tens;
+          }
+          if (this.items[x].tens > 9) {
+            this.items[x].tens = this.items[x].tens;
+          }
+          if (this.items[x].tens > 59) {
+            //we started seconds
+            this.items[x].seconds++;
+            if (this.items[x].hours >= 1 && this.items[x].seconds <= 9) {
+              this.items[x].seconds = "0" + this.items[x].seconds;
+            }
+            this.items[x].tens = '00';
+          }
+          if (this.items[x].seconds > 59) {
+            //we started hours
+            this.items[x].hours++;
+            this.items[x].seconds = 0;
+            this.items[x].tens = 0;
+          }
+        }
+
+      }
+    }).mount('#timer')
+  </script>
+  <style>
+    @import url('https://fonts.cdnfonts.com/css/gotham-pro');
+  </style>
+</body>
+
+</html>

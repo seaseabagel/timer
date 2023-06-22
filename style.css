@@ -1,0 +1,151 @@
+:root {
+  --bg-color: #353638;
+}
+
+body {
+  background-color: var(--bg-color);
+  margin: 0rem;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  padding: 0px;
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+.cross-y {
+  position: absolute;
+  height: 20px;
+  width: 3px;
+  background-color: #9e9e9e;
+}
+.cross-x {
+  position: absolute;
+  height: 3px;
+  width: 20px;
+  background-color: #9e9e9e;
+}
+
+.plus-card {
+  aspect-ratio: 1.875 / 1;
+  height: 120px;
+  position: relative;
+  width: 225px;
+  background-color: #696969;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 45px;
+  width: 775px;
+}
+
+@media only screen and (max-width: 768px) {
+  .container {
+    width: 550px
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  .container {
+    width: 300px
+  }
+}
+.hours {
+  display: none;
+}
+.seconds {
+  display: none;
+}
+.card-top {
+  margin: 21px;
+  color: #ffffff;
+  cursor: default;
+}
+.card-top-disabled {
+  margin: 21px;
+  color: #9e9e9e;
+  cursor: default;
+}
+.card-bottom {
+  margin-top: 38.5px;
+  display: flex;
+}
+.square {
+  height: 20px;
+  width: 20px;
+  background-color: #ffffff;
+  position: absolute;
+  right: 70px;
+  cursor: pointer;
+}
+.square-disabled {
+  height: 20px;
+  width: 20px;
+  background-color: #9e9e9e;
+  position: absolute;
+  right: 70px;
+  cursor: pointer;
+}
+.play-button-disabled {
+	width: 0;
+	height: 0;
+	border-top: 10px solid transparent;
+	border-left: 17px solid #9e9e9e;
+	border-bottom: 10px solid transparent;
+  color: #9e9e9e;
+  position: absolute;
+  left: 75px;
+  cursor: pointer;
+}
+.pause-button {
+  width: 20px;
+  height: 20px;
+  border-style: solid;
+  border-width: 10px;
+  border-style: double;
+  border-width: 0px 0px 0px 10px;
+  border-color: #ffffff;
+  color: #ffffff;
+  position: absolute;
+  left: 75px;
+  cursor: pointer;
+}
+.vector {
+  position: absolute;
+  width: 223px;
+  height: 0px;
+  top: 60px;
+  border: 1px solid #ffffff;
+}
+.vector-disabled {
+  position: absolute;
+  width: 223px;
+  height: 0px;
+  top: 60px;
+  border: 1px solid #9e9e9e;
+}
+
+.card {
+  aspect-ratio: 1.875 / 1;
+  height: 120px;
+  position: relative;
+  width: 225px;
+  background-color: #696969;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  display: inline-block;
+}
+
+#timer {
+  font-family: 'Gotham Pro';
+  font-weight: 400;
+  font-size: 22px;
+  text-align: center;
+  line-height: 21px;
+  text-align: center;
+}
